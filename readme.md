@@ -80,3 +80,59 @@ pass environment variable along with go run
 10. import json collection into mongo shortcut:
 
 mongoimport --username admin --password password --authenticationDatabase admin --db demo --collection recipes --file recipes.json --jsonArray
+
+redis is used to cache the data for faster response time of our api.
+redis used the ram and we use an in-memory database for faster performaance.
+
+to run the redis in docker:
+
+docker run -d -v $pwd/conf:/usr/local/etc/redis --name redis -p 6379:6379 redis:6.0
+
+to see container logs:
+
+docker logs -f containerid
+
+redis policy maxmemory-policy allkeys-lru
+lru = least recently used
+
+to install redis in gocode
+
+go get github.com/go-redis/redis/v8
+
+to verify the data being cached by redis:
+
+docker exec -it container-id bash
+
+after that
+
+redis-cli
+
+EXISTS recipes
+
+to check if recipes exists
+
+exit to leave the shell.
+
+for redis gui
+
+docker run -d --name redisinsight --link redis -p 8001:8001 redislabs/redisinsight
+
+localhost:8001
+
+jwts ---(javascript object notation) json web tokens
+
+methods to protect the end points:
+
+1. api keys
+2. basic auth
+3. client sessions
+4. openid connect
+5. openAuthorization
+
+to integrate jwt token:
+
+go get github.com/dgrijalva/jwt-go
+
+to decode the jwt token
+
+https://jwt.io/
